@@ -5,6 +5,9 @@
   * [Installation](#Installation)
   * [Overview of Hadoop Ecosystem](#overview-of-hadoop-ecosystem)
   * [HDFS](#hdfs)
+    + [Login using Ambari](#login-using-ambari)
+    + [Login using Putty](#login-using-putty)
+    + [Admin access for Ambari](#admin-access-for-ambari)
    
 ## Hadoop
 * Hadoop is an **open source** software platform for **distributed storage** and **distributed processing** of **very large datasets** on **computer clusters** built from commodity hardware
@@ -90,3 +93,47 @@
   * HTTP/HDFS Proxy
   * Java interface
   * NFS Gateway
+
+#### Login using Ambari
+* To manipulate files with GUI, we can use **Ambari** through HTTP interface
+  * Goto http://localhost:8080
+  * Login with maria_dev
+  * Click on **HDFS** from different options available
+  * Goto grid icon and click on **Files View**
+  * It shows you the HDFS thats running on your Hadoop cluster
+    * You can now perform operations on the files
+      * Upload, rename, make directories, concatenate, download files etc
+#### Login using Putty
+* To manipulate files using CLI, we need to download Putty Client
+  * Download from https://putty.org/
+* In the Hostname field, type
+  * maria_dev@127.0.0.1
+* In the Port field, type
+  * 2222 (default for Hortonworks sandbox)
+* Select connection type as
+  * SSH
+* Click on open and type password
+  * maria_dev
+* You can now write commands to manipulate files on HDFS
+* Command syntax is **hadoop fs -[command]**
+  * hadoop fs -ls
+  * hadoop fs -mkdir abc
+  * wget *url*
+    * To download files into your Virtual Box
+  * hadoop fs -copyFromLocal *source* *Destination*
+* To check all the commands, type
+  * hadoop fs
+  
+#### Admin access for Ambari
+* Sometimes, we need admin access to Ambari instead of maria_dev
+  * For example, starting or stopping some services
+  * or installing new services on Hadoop
+  * these actions require administrative privileges
+* In order to have the Admin access
+  * first [login using Putty](#login-using-putty) using maria_dev credentials
+  * ```su root```
+  * ```ambari-admin-password-reset```
+    * now set the new password for the ```admin``` account
+* Now goto http://localhost:8080
+  * enter username as ```admin```
+  * password is what you just entered in the previous command
